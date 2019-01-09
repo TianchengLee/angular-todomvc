@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 class TodoInfo {
-  constructor(public id: number, public content: string, public isDone: boolean) { }
+  constructor(public id: number = 1, public content: string, public isDone: boolean) { }
 }
 
 @Component({
@@ -18,8 +18,8 @@ export class AppComponent {
   public userInputContent: string = ''
   public addTodo(): void {
     if (!this.userInputContent.trim()) return
-    let lastTodoInfo = this.todos[this.todos.length - 1]
-    let todoInfo = new TodoInfo(lastTodoInfo.id + 1, this.userInputContent, false)
+    let last = this.todos[this.todos.length - 1]
+    let todoInfo = new TodoInfo(last ? last.id + 1 : 1, this.userInputContent, false)
     this.todos.unshift(todoInfo)
     this.userInputContent = ''
   }
@@ -31,5 +31,8 @@ export class AppComponent {
   }
   get completedCount(): number {
     return this.todos.filter(item => !item.isDone).length
+  }
+  public deleteTodo(i): void {
+    this.todos.splice(i, 1)
   }
 }

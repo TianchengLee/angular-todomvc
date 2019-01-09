@@ -1,7 +1,18 @@
 import { Component } from '@angular/core';
 
 class TodoInfo {
-  constructor(public id: number = 1, public content: string, public isDone: boolean) { }
+  constructor(public id: number = 1, private _content: string, public isDone: boolean) {
+    this.content = _content
+  }
+
+  public get content(): string {
+    return this._content
+  }
+
+  public set content(v: string) {
+    this._content = v;
+  }
+
 }
 
 @Component({
@@ -11,9 +22,9 @@ class TodoInfo {
 })
 export class AppComponent {
   public todos: Array<TodoInfo> = [
-    { id: 1, content: '哈哈', isDone: false },
-    { id: 2, content: '嘿嘿', isDone: false },
-    { id: 3, content: '嘎嘎', isDone: false },
+    new TodoInfo(1, '哈哈', false),
+    new TodoInfo(2, '嘿嘿', false),
+    new TodoInfo(3, '嘎嘎', false),
   ]
   public userInputContent: string = ''
   public addTodo(): void {
@@ -35,4 +46,5 @@ export class AppComponent {
   public deleteTodo(i): void {
     this.todos.splice(i, 1)
   }
+  public currentEditingTodo: TodoInfo = null
 }

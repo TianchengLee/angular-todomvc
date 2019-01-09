@@ -1,16 +1,16 @@
 <section class="todoapp">
   <header class="header">
     <h1>todos</h1>
-    <input 
-    [(ngModel)]="userInputContent"
-    (keydown.enter)="addTodo()"
-    class="new-todo" 
-    placeholder="What needs to be done?" 
-    autofocus>
+    <input [(ngModel)]="userInputContent" (keydown.enter)="addTodo()" class="new-todo" placeholder="What needs to be done?"
+      autofocus>
   </header>
   <!-- This section should be hidden by default and shown when there are todos -->
   <section class="main">
-    <input id="toggle-all" class="toggle-all" type="checkbox">
+    <input 
+     [(ngModel)]="toggleAll"
+     id="toggle-all"
+     class="toggle-all"
+     type="checkbox">
     <label for="toggle-all">Mark all as complete</label>
     <ul class="todo-list">
       <!-- These are here just to show the structure of the list items -->
@@ -19,7 +19,7 @@
         completed: item.isDone
       }" *ngFor="let item of todos">
         <div class="view">
-          <input class="toggle" type="checkbox" checked>
+          <input class="toggle" type="checkbox" [(ngModel)]="item.isDone">
           <label>{{ item.content }}</label>
           <button class="destroy"></button>
         </div>
@@ -30,7 +30,7 @@
   <!-- This footer should hidden by default and shown when there are todos -->
   <footer class="footer">
     <!-- This should be `0 items left` by default -->
-    <span class="todo-count"><strong>0</strong> item left</span>
+    <span class="todo-count"><strong>{{ completedCount }}</strong> item left</span>
     <!-- Remove this if you don't implement routing -->
     <ul class="filters">
       <li>

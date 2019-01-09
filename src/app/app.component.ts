@@ -16,11 +16,20 @@ export class AppComponent {
     { id: 3, content: '嘎嘎', isDone: false },
   ]
   public userInputContent: string = ''
-  public addTodo() {
+  public addTodo(): void {
     if (!this.userInputContent.trim()) return
     let lastTodoInfo = this.todos[this.todos.length - 1]
     let todoInfo = new TodoInfo(lastTodoInfo.id + 1, this.userInputContent, false)
     this.todos.unshift(todoInfo)
     this.userInputContent = ''
+  }
+  get toggleAll(): boolean {
+    return this.todos.every(item => item.isDone)
+  }
+  set toggleAll(val) {
+    this.todos.forEach(item => item.isDone = val)
+  }
+  get completedCount(): number {
+    return this.todos.filter(item => !item.isDone).length
   }
 }

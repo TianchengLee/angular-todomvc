@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 
 class TodoInfo {
-  id: number
-  content: string
-  isDone: boolean
+  constructor(public id: number, public content: string, public isDone: boolean) { }
 }
 
 @Component({
@@ -13,8 +11,16 @@ class TodoInfo {
 })
 export class AppComponent {
   public todos: Array<TodoInfo> = [
-    { id: 1, content: '哈哈', isDone: true },
+    { id: 1, content: '哈哈', isDone: false },
     { id: 2, content: '嘿嘿', isDone: false },
     { id: 3, content: '嘎嘎', isDone: false },
   ]
+  public userInputContent: string = ''
+  public addTodo() {
+    if (!this.userInputContent.trim()) return
+    let lastTodoInfo = this.todos[this.todos.length - 1]
+    let todoInfo = new TodoInfo(lastTodoInfo.id + 1, this.userInputContent, false)
+    this.todos.unshift(todoInfo)
+    this.userInputContent = ''
+  }
 }

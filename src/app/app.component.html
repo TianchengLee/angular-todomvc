@@ -4,44 +4,47 @@
     <input [(ngModel)]="userInputContent" (keydown.enter)="addTodo()" class="new-todo" placeholder="What needs to be done?"
       autofocus>
   </header>
-  <!-- This section should be hidden by default and shown when there are todos -->
-  <section class="main">
-    <input [(ngModel)]="toggleAll" id="toggle-all" class="toggle-all" type="checkbox">
-    <label for="toggle-all">Mark all as complete</label>
-    <ul class="todo-list">
-      <!-- These are here just to show the structure of the list items -->
-      <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
-      <li [ngClass]="{
-        completed: item.isDone
-      }" *ngFor="let item of todos; let i = index;">
-        <div class="view">
-          <input class="toggle" type="checkbox" [(ngModel)]="item.isDone">
-          <label>{{ item.content }}</label>
-          <button (click)="deleteTodo(i)" class="destroy"></button>
-        </div>
-        <input class="edit" value="Create a TodoMVC template">
-      </li>
-    </ul>
-  </section>
-  <!-- This footer should hidden by default and shown when there are todos -->
-  <footer class="footer">
-    <!-- This should be `0 items left` by default -->
-    <span class="todo-count"><strong>{{ completedCount }}</strong> item left</span>
-    <!-- Remove this if you don't implement routing -->
-    <ul class="filters">
-      <li>
-        <a class="selected" href="#/">All</a>
-      </li>
-      <li>
-        <a href="#/active">Active</a>
-      </li>
-      <li>
-        <a href="#/completed">Completed</a>
-      </li>
-    </ul>
-    <!-- Hidden if no completed items are left ↓ -->
-    <button class="clear-completed">Clear completed</button>
-  </footer>
+  <ng-template [ngIf]="todos.length">
+    <!-- This section should be hidden by default and shown when there are todos -->
+    <section class="main">
+      <input [(ngModel)]="toggleAll" id="toggle-all" class="toggle-all" type="checkbox">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul class="todo-list">
+        <!-- These are here just to show the structure of the list items -->
+        <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
+        <li [ngClass]="{
+          completed: item.isDone
+        }" *ngFor="let item of todos; let i = index;">
+          <div class="view">
+            <input class="toggle" type="checkbox" [(ngModel)]="item.isDone">
+            <label>{{ item.content }}</label>
+            <button (click)="deleteTodo(i)" class="destroy"></button>
+          </div>
+          <input class="edit" value="Create a TodoMVC template">
+        </li>
+      </ul>
+    </section>
+    <!-- This footer should hidden by default and shown when there are todos -->
+    <footer class="footer">
+      <!-- This should be `0 items left` by default -->
+      <span class="todo-count"><strong>{{ completedCount }}</strong> item left</span>
+      <!-- Remove this if you don't implement routing -->
+      <ul class="filters">
+        <li>
+          <a class="selected" href="#/">All</a>
+        </li>
+        <li>
+          <a href="#/active">Active</a>
+        </li>
+        <li>
+          <a href="#/completed">Completed</a>
+        </li>
+      </ul>
+      <!-- Hidden if no completed items are left ↓ -->
+      <button class="clear-completed">Clear completed</button>
+    </footer>
+
+  </ng-template>
 </section>
 <footer class="info">
   <p>Double-click to edit a todo</p>

@@ -47,4 +47,7 @@ export class AppComponent {
     this.todos.splice(i, 1)
   }
   public currentEditingTodo: TodoInfo = null
+  public clearAllDone(): void {
+    this.todos = this.todos.filter(item => !item.isDone)
+  }
 }

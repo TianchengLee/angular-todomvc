@@ -16,7 +16,7 @@
           completed: item.isDone,
           editing: currentEditingTodo === item
         }"
-          *ngFor="let item of todos; let i = index;" (dblclick)="currentEditingTodo = item">
+          *ngFor="let item of filterTodos; let i = index;" (dblclick)="currentEditingTodo = item">
           <div class="view">
             <input class="toggle" type="checkbox" [(ngModel)]="item.isDone">
             <label>{{ item.content }}</label>
@@ -33,13 +33,13 @@
       <!-- Remove this if you don't implement routing -->
       <ul class="filters">
         <li>
-          <a class="selected" href="#/">All</a>
+          <a [ngClass]="{'selected': status === 'all'}" (click)="status = 'all';$event.preventDefault();" href="#/aaa">All</a>
         </li>
         <li>
-          <a href="#/active">Active</a>
+          <a [ngClass]="{'selected': status === 'active'}" (click)="status = 'active'" href="#/">Active</a>
         </li>
         <li>
-          <a href="#/completed">Completed</a>
+          <a [ngClass]="{'selected': status === 'completed'}" (click)="status = 'completed'" href="#/">Completed</a>
         </li>
       </ul>
       <!-- Hidden if no completed items are left ↓ -->

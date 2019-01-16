@@ -26,6 +26,20 @@ export class AppComponent {
     new TodoInfo(2, '嘿嘿', false),
     new TodoInfo(3, '嘎嘎', false),
   ]
+
+  public status: string = 'all'
+
+  get filterTodos(): Array<TodoInfo> {
+    switch (this.status) {
+      case 'all':
+        return this.todos
+      case 'active':
+        return this.todos.filter(item => !item.isDone)
+      case 'completed':
+        return this.todos.filter(item => item.isDone)
+    }
+  }
+
   public userInputContent: string = ''
   public addTodo(): void {
     if (!this.userInputContent.trim()) return
